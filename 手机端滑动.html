@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+			html,body{
+				margin:0px;
+				width:100%;
+				height:100%;
+				background-color: #008000;
+			}
+			#content{
+				width:100%;
+				height:100%;
+				animation-duration: 2s;
+				animation-fill-mode: forwards;
+				animation-timing-function: linear;
+				background-color: pink;
+			}
+			@-webkit-keyframes moveleft{
+				from{ }
+				to{transform: translateX(-100%)}
+			}
+			
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			
+		</div>
+	</body>
+	<script>
+		var start,
+			end,
+			
+			content=document.querySelector("#content");
+		"touchstart touchmove touchend".split(" ").forEach(function(etype){
+			document.addEventListener(etype,function(e){
+				
+				switch(e.type){
+					case "touchstart":
+					moveStart(e);
+					break;
+					case "touchmove":
+					move(e);
+					break;
+					case "touchend":
+					moveEnd();
+					break;
+				}
+			},false)
+		});
+		function moveStart(e){
+			start={
+				x:e.touches[0].clientX,
+				y:e.touches[0].clientY
+			}
+			
+		}
+		function move(e){
+			end={
+				x:e.touches[0].clientX,
+				y:e.touches[0].clientY
+			}
+		}
+		function moveEnd(e){
+			var x=end.x-start.x,
+				 y=end.y-start.y,
+			num=Math.atan2(-y,x)/Math.PI*180;
+			
+			switch(true){
+				
+				case num>-45&&num<45:
+				
+				{
+					
+				break;
+				}
+				case num>45&&num<135:
+				
+				{
+				break;
+				}
+				case num>135||num<-135:
+		
+				{
+				content.style.animationName="moveleft";
+				break;
+				}
+				case num>-135&&num<-45:
+				
+				{
+				break;
+				}
+			}
+			
+		}
+//		function play(num){
+//			switch(true){
+//				case num=="向左":
+//				debugger;
+//				
+//				break;
+//			}
+//		}
+//		arr.forEach(function(ar){
+//			play(ar);
+//		})
+
+	</script>
+</html>

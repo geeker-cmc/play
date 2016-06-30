@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+	 	<meta charset="utf-8" name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<style>
+			html body{
+				margin:0px;
+			}
+		</style>
+	</head>
+	<body>
+		<canvas width="375px"; height="667px"; style="background-color: #ccc"></canvas>
+	</body>
+	<script>
+		var cvs=document.querySelector("canvas"),
+			ctx=cvs.getContext("2d");
+			"touchstart touchmove touchend".split(" ").forEach(function(etype){
+				
+				cvs.addEventListener(etype,function(e){
+					
+					switch(e.type){
+						case "touchstart":
+						{
+						
+							drawstar(e)
+							break;
+						};
+						case "touchmove":
+						{
+							drawmove(e);
+							break;
+						};
+						case "touchend":
+						{
+							drawend(e);
+							break;
+						}
+					}
+				})
+			})
+			function drawstar(e){
+				ctx.fillStyle="red";
+				ctx.beginPath();
+				ctx.arc(e.touches[0].clientX,e.touches[0].clientY,10,0,2*Math.PI,true);
+				ctx.fill();
+				ctx.closePath();
+//				ctx.beginPath();
+//				ctx.strokeStyle="green";
+//				ctx.moveTo(e.touches[0].clientX,e.touches[0].clientY)
+			}
+			function drawmove(e){
+				ctx.beginPath();
+				ctx.moveTo(e.touches[0].clientX,e.touches[0].clientY);
+				ctx.lineTo(e.touches[0].clientX,e.touches[0].clientY);
+				ctx.stroke();
+				ctx.closePath();
+				
+			}
+			function drawend(e){
+				ctx.clearRect(0,0,375,667)
+			}
+	</script>
+</html>
